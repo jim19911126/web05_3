@@ -5,12 +5,12 @@
 <hr>
 <div style="height: 160px;">
     <h3 class="ct">新增預告片海報</h3>
-    <form action="./api/add_poster.php" method="post">
+    <form action="./api/add_poster.php" method="post" enctype="multipart/form-data">
         <table>
             <td>預告片海報:</td>
-            <td><input type="file" name="file" id="file"></td>
+            <td><input type="file" name="img" id="img"></td>
             <td>預告片片名:</td>
-            <td><input type="text" name="text" id="text"></td>
+            <td><input type="text" name="name" id="name"></td>
         </table>
         <div class="ct">
             <input type="submit" value="新增">
