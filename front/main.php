@@ -35,15 +35,24 @@
         justify-content: space-around;
         align-items: center;
     }
+
+    .poster{
+        
+    }
 </style>
 
+<?php
+$posters=$Poster->all(['sh'=>1], "order by `rank`");
 
+?>
+foreach ($posters as $poster => $value):
+    # code...
 
 <div class="half" style="vertical-align:top;">
     <h1>預告片介紹</h1>
     <div class="rb tab" style="width:95%;">
         <div class="lists">
-            
+
         </div>
         <div class="controls">
             <div class="left"></div>

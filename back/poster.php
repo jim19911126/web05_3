@@ -54,7 +54,7 @@
     $(".sw-btn").on("click",function name(params) {
         let id=$(this).data("id")
         let sw=$(this).data("sw")
-        $.post("./api/sw.php",{table:"Poster",id,sw},(res)=>{
+        $.post("./api/sw.php",{table:'Poster',id,sw},(res)=>{
             location.reload();
         })
     })
