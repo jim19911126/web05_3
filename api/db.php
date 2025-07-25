@@ -162,6 +162,7 @@ private function arraytosql($array){
 
 
 $Poster=new DB('poster');
+$Movie=new DB('movie');
 
 
 /* 測試資料庫連線及功能正常
