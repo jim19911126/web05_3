@@ -17,7 +17,7 @@
 }
 #orderForm td:nth-child(2) select{
     width:98%;
-    text-align:right;
+    text-align:left;
 }
 </style>
 
@@ -39,3 +39,32 @@
     <button>確定</button>
     <button>重製</button>
 </div>
+
+<script>
+    let url=new URLSearchParams(location.search);
+
+    getMovie();
+
+    $("#movie").on("change",function name(params) {
+        getDate($(this).val())
+    })
+
+    function getMovie(params) {
+        let id=0
+        if(url.has('id')){
+            id=url.get('id');
+        }
+        $.get("./api/get_movie.php",{id},(movies)=>{
+            $('#movie').html(movies)
+            
+            getDate($("#movie").val());
+        })
+    }
+
+    function  getDate(movieId) {
+        $.get("./api/get_date.php",{movieId},(dates)=>{
+            $("#date").html(dates)
+        })
+        
+    }
+</script>
