@@ -84,7 +84,7 @@
                 <textarea name="intro" id="intro"><?=$movie['id'];?></textarea>
             </div>
         </div>
-        <input type="hidden" name="id" value="<?$movie['id'];?>">
+        <input type="hidden" name="id" value="<?=$movie['id'];?>">
         <div class="ct"><input type="submit" value="新增"><input type="reset" value="重置"></div>
     </form>
 </div>
