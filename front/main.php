@@ -145,8 +145,8 @@ $posters = $Poster->all(['sh' => 1], "order by `rank`");
             }
 
 
-        }else{
-            rank=r;
+        } else {
+            rank = r;
         }
 
         let next = $(".poster").eq(rank);
@@ -190,14 +190,74 @@ $posters = $Poster->all(['sh' => 1], "order by `rank`");
     })
 </script>
 
+<Style>
+    .movie {
+        width: 48%;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        min-height: 100px;
+        font-size: 12px;
+        flex-wrap: wrap;
+    }
+
+    .movie-list {
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+        height: 320px;
+        align-content: space-evenly;
+    }
+</Style>
+
 <div class="half">
     <h1>院線片清單</h1>
     <div class="rb tab" style="width:95%;">
-        <table>
-            <tbody>
-                <tr> </tr>
-            </tbody>
-        </table>
-        <div class="ct"> </div>
+        <div class="movie-list">
+            <?php
+            $today = date("Y-m-d");
+            $ondate = date("Y-m-d", strtotime("-2 days", strtotime($today)));
+            $total = $Movie->count(['sh' => 1], " and ondate between '$ondate' and '$today'");
+            $div = 4;
+            $pages = ceil($total / $div); // 注意是 $pages，不是 $page
+            $now = $_GET['p'] ?? 1;
+            $start = ($now - 1) * $div;
+
+            // 這裡 $movies 應該是複數，$movie->all() 應該是正確語法
+            $movies = $Movie->all(['sh' => 1], "and ondate between '$ondate' and '$today' order by `rank` limit $start, $div");
+            foreach ($movies as $movie):
+            ?>
+                <div class="movie">
+                    <div onclick="location.href='?do=intro&id=<?= $movie['id'] ?>'">
+                        <img src="./image/<?= $movie['poster']; ?>" style="width: 60px; height: 70px; border:2px solid white">
+                    </div>
+                    <div>
+                        <div style='font-size:14px;'><?= $movie['name']; ?></div>
+                        <div>分級:
+                            <img src="./icon/03C0<?= $movie['level']; ?>.png" style="width:16px;">
+                            <?= $levelStr[$movie['level']]; ?>
+                        </div>
+                        <div>上映日期:<?= $movie['ondate']; ?></div>
+                        <div>
+                            <button onclick="location.href='?do=intro&id=<?= $movie['id'] ?>'">劇情簡介</button>
+                            <button onclick="location.href='?do=order&id=<?= $movie['id'] ?>'">線上訂票</button>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <div class="ct">
+            <?php
+            if ($now - 1 > 0) {
+                echo "<a href='?p=" . ($now - 1) . "'> < </a>";
+            }
+            for ($i = 1; $i <= $pages; $i++) {
+                $size = ($i == $now) ? '24px' : '16px';
+                echo "<a href='?p=$i' style='font-size:$size;'>$i</a>";
+            }
+            if ($now + 1 <= $pages) {
+                echo "<a href='?p=" . ($now + 1) . "'> > </a>";
+            }
+            ?>
+        </div>
     </div>
 </div>

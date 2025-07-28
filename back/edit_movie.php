@@ -14,7 +14,7 @@
                 <table>
                     <tr class="ct">
                         <td class="ct">片名</td>
-                        <td><input type="text" name="name" id="name" value="<?=$moive['name'];?>"></td>
+                        <td><input type="text" name="name" id="name" value="<?=$movie['name'];?>"></td>
                     </tr>
                     <tr>
                         <td class="ct">分級</td>
@@ -29,7 +29,7 @@
                     </tr>
                     <tr class="ct">
                         <td>片長</td>
-                        <td><input type="text" name="length" id="length" value="<?=$movie['length'];?>></td>
+                        <td><input type="text" name="length" id="length" value="<?=$movie['length'];?>"></td>
                     </tr>
                     <tr class="ct">
                         <td>上映日期</td>
