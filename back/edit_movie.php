@@ -29,7 +29,7 @@
                     </tr>
                     <tr class="ct">
                         <td>片長</td>
-                        <td><input type="text" name="length" id="length" value="<?=$moive['length'];?>></td>
+                        <td><input type="text" name="length" id="length" value="<?=$movie['length'];?>></td>
                     </tr>
                     <tr class="ct">
                         <td>上映日期</td>
