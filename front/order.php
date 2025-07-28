@@ -49,6 +49,11 @@
         getDate($(this).val())
     })
 
+    $("#date").on("change",function name(params) {
+        getSession($("#movie").val(),$(this).val())
+        
+    })
+
     function getMovie(params) {
         let id=0
         if(url.has('id')){
@@ -64,6 +69,15 @@
     function  getDate(movieId) {
         $.get("./api/get_date.php",{movieId},(dates)=>{
             $("#date").html(dates)
+
+            getSession(movieId,$('#date').val())
+        })
+        
+    }
+
+    function getSession(movieId,date) {
+        $.get("./api/get_session.php",{movieId,date},(sessions)=>{
+            $("#session").html(sessions)
         })
         
     }
