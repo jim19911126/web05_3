@@ -15,8 +15,12 @@ if (!empty($_FILES['trailer']['tmp_name'])) {
 
 $_POST['ondate']="{$_POST['year']}-{$_POST['month']}-{$_POST['day']}";
 unset($_POST['year'],$_POST['month'],$_POST['day']);
+
+if (!isset($_POST['id'])) {
 $_POST['sh']=1;
 $_POST['rank']=$Movie->max('rank')+1;
+
+}
 
 $Movie->save($_POST);
 to("../back.php?do=movie")

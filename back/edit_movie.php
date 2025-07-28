@@ -6,7 +6,7 @@
 
     <h2 class="ct">編輯電影</h2>
     <hr>
-    <form action="./api/edit_movie.php" method="post" enctype="multipart/form-data">
+    <form action="./api/save_movie.php" method="post" enctype="multipart/form-data">
 
         <div style="display: flex;">
             <div>影片資料</div>
