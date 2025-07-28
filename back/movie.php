@@ -60,8 +60,8 @@
                         data-id="<?= $movie['id'] ?>"><?= ($movie['sh'] == 1) ? '顯示' : '隱藏'; ?></button>
                     <button class="sw-btn" data-sw='<?= $prev; ?>' data-id="<?= $movie['id']; ?>">往上</button>
                     <button class="sw-btn" data-sw='<?= $next; ?>' data-id="<?= $movie['id']; ?>">往下</button>
-                    <button>編輯電影</button>
-                    <button>刪除電影</button>
+                    <button onclick="location.href='?do=edit_movie&id=<?=$movie['id']?>'">編輯電影</button>
+                    <button class="del-btn" data-id="<?=$movie['id'];?>">刪除電影</button>
                 </div>
                 <div>
                     劇情介紹:<?= $movie['intro']; ?>
@@ -93,5 +93,16 @@
         $.post("./api/sw.php", { table: 'Movie', id, sw }, (res) => {
             location.reload();
         })
+    })
+
+    $(".del-btn").on("click", function(){
+        let id=$(this).data("id");
+
+        if (confirm("確定要刪除這部電影嗎?")) {
+            $.post("./api/del.php",{table:'Movie',id},()=>{
+                location.reload();
+            })
+            
+        }
     })
 </script>
