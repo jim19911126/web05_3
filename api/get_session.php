@@ -13,8 +13,11 @@ if ($date == date('Y-m-d') && $hr>13) {
 }
 
 for ($i = $start; $i < 5; $i++) {
+    $remaining=20;
     echo "<option value='{$showStr[$i]}'>";
     echo $showStr[$i];
+    echo "剩餘座位";
+    echo "$remaining 人";
     echo "</option>";
 }
 
