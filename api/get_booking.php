@@ -1,3 +1,5 @@
+<?php include_once "db.php" ?>
+
 <style>
     .booking-box {
         width: 540px;
@@ -44,11 +46,11 @@
         box-sizing: border-box;
     }
 
-    .reserved{
-        background:url("./icon/03D03.png")no-repeat center;
+    .reserved {
+        background: url("./icon/03D03.png")no-repeat center;
     }
 
-    .empty{
+    .empty {
         background: url("./icon/03D02.png")no-repeat center;
     }
 </style>
@@ -57,9 +59,9 @@
     <div id="seats">
         <?php
         for ($i = 0; $i < 20; $i++):
-            $reserved='empty';
+            $reserved = 'empty';
             ?>
-            <div class="seat <?=$reserved;?>">
+            <div class="seat <?= $reserved; ?>">
                 <div><?= floor($i / 5) + 1; ?>排<?= ($i % 5) + 1 ?>號</div>
                 <input type="checkbox" name="seat" value="<?= $i; ?>">
             </div>
@@ -72,8 +74,8 @@
 
 <div class="info-box">
     <div class="order-info">
-        <div>您選擇的電影是：</div>
-        <div>您選擇的時刻是：</div>
+        <div>您選擇的電影是：<?= $Movie->find($_GET['id'])['name']; ?></div>
+        <div>您選擇的時刻是：<?= $_GET['date']; ?> <?= $_GET['session']; ?></div>
         <div>您已經勾選<span id="tix">0</span>張票，最多可以購買四張票</div>
     </div>
 </div>
@@ -84,20 +86,34 @@
 </div>
 
 <script>
-    let selectedSeats=[];
-    $(".seat input[type='checkbox']").on("change",function name(params) {
-        if($(this).prop("checked")){
-            if (selectedSeats.length<4) {
+    let selectedSeats = [];
+    $(".seat input[type='checkbox']").on("change", function name(params) {
+        if ($(this).prop("checked")) {
+            if (selectedSeats.length < 4) {
                 selectedSeats.push($(this).val());
-                
-            }else{
+
+            } else {
                 alert("最多只能選擇四張票");
-                $(this).prop("checked",false);
+                $(this).prop("checked", false);
             }
-        }else{
-            selectedSeats.splice(selectedSeats.indexOf($(this).val()),1);
+        } else {
+            selectedSeats.splice(selectedSeats.indexOf($(this).val()), 1);
         }
         $("#tix").text(selectedSeats.length);
-        
+
+    })
+
+    $('.btn-book').on('click', function name(params) {
+        $.post("./api/booking.php", {
+            movie:"<?= $Movie->find($_GET['id'])['name']; ?>",
+            date: "<?= $_GET['date']; ?>",
+            session: "<?= $_GET['session']; ?>",
+            seats: selectedSeats
+
+        }, (no) => {
+            console.log(no);
+            location.href = `?do=result&no=${no}`;
+
+        })
     })
 </script>
