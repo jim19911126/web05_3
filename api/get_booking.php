@@ -43,14 +43,23 @@
         height: 86px;
         box-sizing: border-box;
     }
+
+    .reserved{
+        background:url("./icon/03D03.png")no-repeat center;
+    }
+
+    .empty{
+        background: url("./icon/03D02.png")no-repeat center;
+    }
 </style>
 
 <div class="booking-box">
     <div id="seats">
         <?php
         for ($i = 0; $i < 20; $i++):
+            $reserved='empty';
             ?>
-            <div class="seat">
+            <div class="seat <?=$reserved;?>">
                 <div><?= floor($i / 5) + 1; ?>排<?= ($i % 5) + 1 ?>號</div>
                 <input type="checkbox" name="seat" value="<?= $i; ?>">
             </div>
@@ -73,3 +82,22 @@
     <button class="btn-prev">上一步</button>
     <button class="btn-book">訂購</button>
 </div>
+
+<script>
+    let selectedSeats=[];
+    $(".seat input[type='checkbox']").on("change",function name(params) {
+        if($(this).prop("checked")){
+            if (selectedSeats.length<4) {
+                selectedSeats.push($(this).val());
+                
+            }else{
+                alert("最多只能選擇四張票");
+                $(this).prop("checked",false);
+            }
+        }else{
+            selectedSeats.splice(selectedSeats.indexOf($(this).val()),1);
+        }
+        $("#tix").text(selectedSeats.length);
+        
+    })
+</script>
